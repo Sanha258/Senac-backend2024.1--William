@@ -18,7 +18,7 @@ import service.PessoaService;
 @Path("/pessoa")
 public class PessoaController {
 	
-	private PessoaService service = new PessoaService();
+private PessoaService service = new PessoaService();
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -40,8 +40,6 @@ public class PessoaController {
 		 return service.excluir(id);
 	}
 	
-	
-	
 	@GET
 	@Path("/{id}")
 	public Pessoa consultarPorId(@PathParam("id") int id){
@@ -54,6 +52,11 @@ public class PessoaController {
 		 return service.consultarTodas();
 	}
 	
+	@GET
+	@Path("/pesquisadores")
+	public List<Pessoa> consultarPesquisadores(){
+		 return service.consultarPesquisadores();
+	}
 } 
 	
 	

@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import exception.VacinacaoException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -26,5 +28,11 @@ public class PaisController {
 	@Path("/{id}")
 	public Pais consultarPorId(@PathParam("id") int id){
 		 return service.consultarPorId(id);
+	}
+	
+	@GET
+	@Path("/todos")
+	public ArrayList<Pais> consultarTodos() {
+		return service.consultarTodos();
 	}
 }

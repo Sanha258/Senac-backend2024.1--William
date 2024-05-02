@@ -17,7 +17,7 @@ import service.VacinacaoService;
 @Path("/vacinacao")
 public class VacinacaoController {
 	
-	private service.VacinacaoService service = new VacinacaoService();
+private VacinacaoService service = new VacinacaoService();
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

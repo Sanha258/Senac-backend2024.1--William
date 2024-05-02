@@ -1,14 +1,17 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import exception.VacinacaoException;
 import model.entity.Pessoa;
+import model.entity.Vacinacao;
 import model.repository.PessoaRepository;
+import model.repository.VacinacaoRepository;
 
 public class PessoaService {
 
-	private PessoaRepository repository = new PessoaRepository();
+private PessoaRepository repository = new PessoaRepository();
 	
 	public Pessoa salvar(Pessoa novaPessoa) throws VacinacaoException {
 		validarCamposObrigatorios(novaPessoa);
@@ -21,14 +24,21 @@ public class PessoaService {
 	public boolean atualizar(Pessoa pessoaEditada) throws VacinacaoException {
 		validarCamposObrigatorios(pessoaEditada);
 		
+		//TODO porque não valido o CPF? Veremos em sala
+		
 		return repository.alterar(pessoaEditada);
 	}
-	
 
-	public boolean excluir(int novaPessoa) throws VacinacaoException{
-		naoExcluirPessoaComDoseVacina(novaPessoa);	
+	public boolean excluir(int id) throws VacinacaoException   {
 		
-		return repository.excluir(novaPessoa);
+		VacinacaoRepository vacinacaoRepository = new VacinacaoRepository();
+		ArrayList<Vacinacao> aplicacoesNaPessoa = vacinacaoRepository.consultarPorIdPessoa(id);
+		
+		if(aplicacoesNaPessoa.size() > 0) {
+			throw new VacinacaoException("Pessoa não pode ser excluída, pois já foi vacinada");
+		}
+		
+		return repository.excluir(id);
 	}
 
 	public Pessoa consultarPorId(int id) {
@@ -70,12 +80,8 @@ public class PessoaService {
 			throw new VacinacaoException("Preencha o(s) seguinte(s) campo(s) \n " + mensagemValidacao);
 		}
 	}
-	
-	private void naoExcluirPessoaComDoseVacina(int id) throws VacinacaoException {	
-	    if (repository.pessoaTemDoseVacina(novaPessoa.getId())) {
-	        throw new VacinacaoException("A pessoa com o ID " + pessoa.getId() + " não pode ser excluída");
-	    }
+
+	public List<Pessoa> consultarPesquisadores() {
+		return this.repository.consultarPesquisadores();
 	}
-	
-	
 }
