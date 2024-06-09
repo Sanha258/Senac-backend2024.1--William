@@ -1,5 +1,6 @@
 package controller;
 
+
 import java.util.ArrayList;
 
 import exception.VacinacaoException;
@@ -9,17 +10,20 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import model.entity.Pais;
 import service.PaisService;
 
-@Path("/pais")
+
 public class PaisController {
+	
 	
 	private PaisService service = new PaisService();
 	
+	
 	@POST
-	@Consumes(jakarta.ws.rs.core.MediaType.APPLICATION_JSON)
-	@Produces(jakarta.ws.rs.core.MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Pais salvar(Pais novo) throws VacinacaoException{
 		 return service.salvar(novo);
 	}
@@ -35,4 +39,7 @@ public class PaisController {
 	public ArrayList<Pais> consultarTodos() {
 		return service.consultarTodos();
 	}
+	
+	
+	
 }

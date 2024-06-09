@@ -1,7 +1,6 @@
 package model.entity;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Pessoa {
 	public static final int PESQUISADOR = 1;
@@ -16,8 +15,7 @@ public class Pessoa {
 	private int tipo;
 	private Pais paisOrigem;
 	
-	//Comentado para evitar confusões durante a prova
-	//private ArrayList<Vacinacao> vacinacoes;
+	
 	
 	public Pessoa() {
 		
@@ -32,7 +30,7 @@ public class Pessoa {
 		this.dataNascimento = dataNascimento;
 		this.tipo = tipo;
 		this.paisOrigem = pais;
-		//this.vacinacoes = vacinacoes;
+	
 	}
 	public int getId() {
 		return id;
@@ -79,11 +77,4 @@ public class Pessoa {
 		this.paisOrigem = paisOrigem;
 	}
 
-//	public ArrayList<Vacinacao> getVacinacoes() {
-//		return vacinacoes;
-//	}
-//
-//	public void setVacinacoes(ArrayList<Vacinacao> vacinacoes) {
-//		this.vacinacoes = vacinacoes;
-//	}
 }
