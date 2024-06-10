@@ -66,14 +66,50 @@ public class PaisRepository implements BaseRepository<Pais> {
 
 	@Override
 	public boolean excluir(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		// william
+		
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		boolean excluiu = false;
+		String query = "DELETE FROM pais WHERE id = " + id;
+		try {
+			if(stmt.executeUpdate(query) == 1) {
+				excluiu = true;
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao excluir pais");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		
+		return excluiu;
 	}
 
 	@Override
-	public boolean alterar(Pais entidade) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean alterar(Pais paisEditado) {
+		// William apagar tu
+		boolean alterou = false;
+		String query = "UPDATE pais" + "SET nome=?, sigla=?" + "WHERE id=?";
+		Connection conn = Banco.getConnection();
+		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, query);
+		try {
+			stmt.setString(1, paisEditado.getNome());
+			stmt.setString(2, paisEditado.getSigla());
+			
+			stmt.setInt(3, paisEditado.getId());
+			alterou = stmt.executeUpdate() > 0;
+		} catch (SQLException erro) {
+			System.out.println("Erro ao atualizar Pais");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+			
+		
+		return alterou;
 	}
 
 	@Override
